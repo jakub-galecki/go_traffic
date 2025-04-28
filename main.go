@@ -38,7 +38,7 @@ func (g *trafficGenerator) run(c *cli.Context) error {
 func main() {
 	gen := &trafficGenerator{
 		handlers: map[trafficType]handler{
-			trafficTypeHttp: &httpHandler{},
+			trafficTypeHttp: newHttpHandler(),
 		},
 	}
 
@@ -63,6 +63,11 @@ func main() {
 				Value: "500ms",
 				Usage: "for how long traffic should be generated",
 			},
+			&cli.StringFlag{
+				Name:  "method",
+				Value: "GET",
+				Usage: "what type of the http should be sent: GET,POST",
+			},
 			&cli.Int64Flag{
 				Name:    "size",
 				Value:   10,
@@ -74,6 +79,11 @@ func main() {
 				Value:   10,
 				Usage:   "number of concurrent workers that will generate request traffic",
 				Aliases: []string{"w"},
+			},
+			&cli.StringSliceFlag{
+				Name:    "headers",
+				Usage:   "headers that will be passed on the request, with format key:value",
+				Aliases: []string{"h"},
 			},
 		},
 		Action: gen.run,

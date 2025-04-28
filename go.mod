@@ -1,8 +1,13 @@
 module github.com/go_traffic
 
-go 1.22.2
+go 1.23.0
 
-require github.com/urfave/cli/v2 v2.27.6
+toolchain go1.23.8
+
+require (
+	github.com/urfave/cli/v2 v2.27.6
+	golang.org/x/sync v0.13.0
+)
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.6 // indirect
